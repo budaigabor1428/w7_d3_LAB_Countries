@@ -8,7 +8,12 @@ this.countries = null;
 };
 
 Countries.prototype.bindEvent = function () {
-
+  PubSub.subscribe('FormView:change', (event) => {
+    console.log(event.detail);
+    let num = event.detail;
+  const country_obj = this.countries[num];
+  console.log(country_obj);
+})
 };
 
 Countries.prototype.getData = function () {
@@ -18,7 +23,6 @@ Countries.prototype.getData = function () {
     this.names = data.map(obj => {
       return obj.name
     });
-    console.log(this.names);
     PubSub.publish('model:countries-ready', this.names);
   });
 };

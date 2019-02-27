@@ -9,8 +9,15 @@ FormView.prototype.bindEvent = function () {
     PubSub.subscribe('model:countries-ready', (event) => {
     const names = event.detail;
     this.populate(names);
-    }
-  )};
+  })
+
+  const countrySelect = document.querySelector('#countries');
+    countrySelect.addEventListener('change', (evt)=>{
+      const selectedIndex = evt.target.value;
+  PubSub.publish('FormView:change', selectedIndex);
+    })
+
+  };
 
 FormView.prototype.populate = function (countries) {
     const selector = document.querySelector('#countries');
